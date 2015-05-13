@@ -1,6 +1,15 @@
 require 'test_helper'
 
 class SearchControllerTest < ActionController::TestCase
+
+  def setup
+    #Primitive GoogleBooks mocking, so it does work offline and is not dependend on Google being online
+    def GoogleBooks.search *p
+      Rails::logger.debug "GoogleBooks Fake"
+      [] #requires something that can do "each"
+    end
+  end
+
   test "should get search" do
     get :search
     assert_response :success
