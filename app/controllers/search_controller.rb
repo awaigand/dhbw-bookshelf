@@ -4,8 +4,8 @@ class SearchController < ApplicationController
   end
 
   def query
-    books = GoogleBooks.search("isbn: #{params[:isbn]}", {:count => 1})
-    @book = books.first
+    books = GoogleBooks.search("isbn: #{params[:isbn]}", {:count => 10})
+    @books = books
   end
 
 
