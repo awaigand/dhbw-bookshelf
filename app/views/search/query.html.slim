@@ -1,5 +1,8 @@
 h1#flash =flash[:message]
 
+- if @books.empty?
+  h1#empty No books found :(
+
 - @books.each do |book|
   .bookrow
     div class="row"
