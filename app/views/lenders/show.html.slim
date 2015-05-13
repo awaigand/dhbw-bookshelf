@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @lender.name
+p
+  strong Street:
+  = @lender.street
+p
+  strong City:
+  = @lender.city
+
+= link_to 'Edit', edit_lender_path(@lender)
+'|
+= link_to 'Back', lenders_path

@@ -1,0 +1,24 @@
+
+
+
+  - for book in @books
+    div class="row" style="margin-top:25px;"
+      div class="col-sm-3"
+        img src=book.image_link
+      div class="col-sm-9"
+        div class="row"
+          div class="col-sm-12"
+            h1 #{book.title} by #{book.author}
+            =link_to 'Remove book', book, data: {:confirm => 'Are you sure?'}, :method => :delete
+          div class="col-sm-12" style="margin-top:20px;"
+            - if book.lender
+              p Lend to: #{book.lender.name}
+            - else
+              form method="post" action="#{book_path(book)}"
+                input name="#{request_forgery_protection_token.to_s}" value="#{form_authenticity_token}" type="hidden"
+                input name="_method" type="hidden" value="put"
+                input name="bookid" value="#{book.id}" type="hidden"
+                select name="lenderid"
+                  -for lender in Lender.all
+                    option value="#{lender.id}" #{lender.name}
+                input type="submit" value="Lend"

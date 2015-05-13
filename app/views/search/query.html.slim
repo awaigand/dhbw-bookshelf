@@ -1,0 +1,20 @@
+h1 You entered the ISBN of this book. Do you want to add it to your library?
+
+div class="row"
+  div class="col-sm-3"
+    img src=@book.image_link
+  div class="col-sm-9"
+    h1 #{@book.title} by #{@book.authors}
+hr
+
+
+div class="row"
+  div class="col-sm-3"
+    a href="#{search_search_path}" class="btn btn-danger" Back To Search
+  div class="col-sm-3"
+    form method="post" action="#{books_path}"
+      input name="#{request_forgery_protection_token.to_s}" value="#{form_authenticity_token}" type="hidden"
+      input type="hidden" name="title" value="#{@book.title}"
+      input type="hidden" name="author" value="#{@book.authors}"
+      input type="hidden" name="image_link" value="#{@book.image_link}"
+      input type="submit" class="btn btn-success" value="Add to library"

@@ -1,0 +1,10 @@
+p#notice = notice
+
+div class="row"
+  div class="col-sm-3"
+    img src=@book.image_link
+  div class="col-sm-9"
+    h1 #{@book.title} by #{@book.author}
+
+
+= link_to 'Back', books_path
