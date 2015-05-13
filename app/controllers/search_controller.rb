@@ -22,7 +22,12 @@ private
   def check_isbn(isbn)
     # Note that this does not actually check if it is a VALID ISBN (checksum)
     # It only checks whether it is formatted like an ISBN
-    isbn.match(ISBN10_REGEX) || isbn.match(ISBN13_REGEX)
+    if isbn
+      isbn.match(ISBN10_REGEX) || isbn.match(ISBN13_REGEX)
+    else
+      false
+    end
+
   end
 
 end
