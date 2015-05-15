@@ -11,6 +11,22 @@ class LendersControllerTest < ActionController::TestCase
     assert_not_nil assigns(:lenders)
   end
 
+  test 'cant create invalid lender' do
+    post :create, lender: {name: nil }
+    assert_response :ok
+    assert_select '#error_explanation ul' do
+      assert_select 'li', "Name can&#39;t be blank"
+    end
+  end
+
+  test 'cant update invalid lender' do
+    patch :update, id: @lender, lender: { name: nil }
+    assert_response :ok
+    assert_select '#error_explanation ul' do
+      assert_select 'li', "Name can&#39;t be blank"
+    end
+  end
+
   test "should get new" do
     get :new
     assert_response :success

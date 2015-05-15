@@ -18,7 +18,7 @@ class AuthorsControllerTest < ActionController::TestCase
 
   test "should create author" do
     assert_difference('Author.count') do
-      post :create, author: { name: @author.name }
+      post :create, author: { name: "New name" }
     end
 
     assert_redirected_to author_path(assigns(:author))
@@ -35,8 +35,24 @@ class AuthorsControllerTest < ActionController::TestCase
   end
 
   test "should update author" do
-    patch :update, id: @author, author: { name: @author.name }
+    patch :update, id: @author, author: { name: "New name" }
     assert_redirected_to author_path(assigns(:author))
+  end
+
+  test 'cant create invalid author' do
+    post :create, author: {name: nil }
+    assert_response :ok
+    assert_select '#error_explanation ul' do
+      assert_select 'li', "Name can&#39;t be blank"
+    end
+  end
+
+  test 'cant update invalid author' do
+    patch :update, id: @author, author: { name: nil }
+    assert_response :ok
+    assert_select '#error_explanation ul' do
+      assert_select 'li', "Name can&#39;t be blank"
+    end
   end
 
   test "should destroy author" do
