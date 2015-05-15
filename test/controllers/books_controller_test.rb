@@ -13,9 +13,57 @@ class BooksControllerTest < ActionController::TestCase
 
   test "should show search option if no books are present" do
     Book.delete_all
-    get :index, authors: nil
+    get :index
     assert_select "#empty > h1", "No books yet."
     assert_select "#empty > h1 > a", "Search?"
+    assert_response :success
+  end
+
+  test "should show books in a pretty fashion" do
+    get :index
+    for book in Book.all
+      assert_select ".row > .col-sm-3 > img[src=\"#{book.image_link}\"]"
+      assert_select ".row > .col-sm-9 > .row > .col-sm-12 > h1", book.title
+    end
+    assert_response :success
+  end
+
+  test "should have valid remove links in index" do
+    get :index
+    for book in Book.all
+      assert_select ".row > .col-sm-9 > .row > .col-sm-12 > a[href=\"#{book_path(book)}\"]"
+    end
+    assert_response :success
+  end
+
+  test "should show lender if book is lend" do
+    Book.create(:title => "Regarding the pain of others", :lender_id => Lender.first.id, :image_link => "http://localhost")
+    get :index
+    assert_select ".row > .col-sm-9 > .row > .col-sm-12 > p", "Lend to:" + Lender.first.name
+    assert_response :success
+  end
+
+  test "should show valid lender link if book is lend" do
+    Book.create(:title => "Regarding the pain of others", :lender_id => Lender.first.id, :image_link => "http://localhost")
+    get :index
+    assert_select ".row > .col-sm-9 > .row > .col-sm-12 > p > a[href=\"#{lender_path(Lender.first.id)}\"]"
+    assert_response :success
+  end
+
+  test "should show unlend button if book is lend" do
+    Book.create(:title => "Regarding the pain of others", :lender_id => Lender.first.id, :image_link => "http://localhost")
+    get :index
+    assert_select ".row > .col-sm-9 > .row > .col-sm-12 > form > input[value=\"#{Lender.first.name} returned the book\"]"
+    assert_response :success
+  end
+
+  test "should show all lenders if not being lend" do
+    get :index
+    assert_select "select" do
+      for len in Lender.all
+        assert_select "option", len.name
+      end
+    end
     assert_response :success
   end
 

@@ -19,6 +19,34 @@ class LendersControllerTest < ActionController::TestCase
     end
   end
 
+  test "should be pretty index" do
+    get :index
+    for len in Lender.all
+      assert_select ".row > .col-sm-6", len.name
+      assert_select ".row > .col-sm-6", len.street+", "+len.city
+    end
+    assert_response :success
+  end
+
+  test "should show all lend books on lender page" do
+    book = Book.create(:title => "Round ireland with a fridge", :image_link => "http://localhost", :lender_id => @lender.id)
+    book2 = Book.create(:title => "The enormous room", :image_link => "http://localhost", :lender_id => @lender.id)
+    book3 = Book.create(:title => "Einmal Rupert und zurück", :image_link => "http://localhost")
+    get :show, id: @lender
+    assert_select "a[href=\"#{book_path(book)}\"]"
+    assert_select "a[href=\"#{book_path(book2)}\"]"
+    assert_select "a[href=\"#{book_path(book3)}\"]", :count => 0
+    assert_response :success
+  end
+
+  test "should be valid links to lender in index" do
+    get :index
+    for len in Lender.all
+      assert_select ".row > .col-sm-6 > a[href=\"#{lender_path(len)}\"]"
+    end
+    assert_response :success
+  end
+
   test 'cant update invalid lender' do
     patch :update, id: @lender, lender: { name: nil }
     assert_response :ok
