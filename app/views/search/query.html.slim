@@ -1,6 +1,6 @@
 h1#flash =flash[:message]
 
-- if @books.empty?
+- if @books.total_items == 0
   h1#empty No books found :(
 
 - @books.each do |book|

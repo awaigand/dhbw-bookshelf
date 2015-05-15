@@ -12,8 +12,8 @@ class BooksController < ApplicationController
   end
 
   def create
-    @book = Book.new(:title => params[:title], :author => params[:author], :image_link => params[:image_link])
-
+    @book = Book.new(:title => params[:title], :image_link => params[:image_link])
+    @book.authors << get_author_for_name(params[:author])
     respond_to do |format|
       if @book.save
         format.html { redirect_to @book, notice: 'Book was successfully created.' }
@@ -46,6 +46,21 @@ class BooksController < ApplicationController
       format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def get_author_for_name (names)
+    authors_coll = Array.new
+    names = names.split(",")
+    names.each do |name|
+      author = Author.find_by_name(name)
+      unless author
+        author = Author.create(:name => name)
+      end
+    authors_coll.push(author)
+    end
+    return authors_coll
   end
 
 end

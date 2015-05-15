@@ -12,16 +12,21 @@ class SearchControllerTest < ActionController::TestCase
     end
   end
 
+
   def setup
 
     @@book = FakeBook.new("An Imperial Afflication", "Peter Van Houten", "http://localhost")
 
     #Primitive GoogleBooks mocking, so it does work offline and is not dependend on Google being online
     def GoogleBooks.search *p
+      result = []
       if p.first == "test"
-        return [@@book]
+        result << @@book
       end
-      [] #requires something that can do "each"
+      def result.total_items
+        self.length
+      end
+      return result
     end
   end
 
