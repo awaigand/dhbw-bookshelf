@@ -1,25 +1,8 @@
 h1 Lenders
 
-table
-  thead
-    tr
-      th Name
-      th Street
-      th City
-      th
-      th
-      th
-
-  tbody
-    - @lenders.each do |lender|
-      tr
-        td = lender.name
-        td = lender.street
-        td = lender.city
-        td = link_to 'Show', lender
-        td = link_to 'Edit', edit_lender_path(lender)
-        td = link_to 'Destroy', lender, data: {:confirm => 'Are you sure?'}, :method => :delete
-
-br
+- @lenders.each do |lender|
+  .row
+    .col-sm-6 =link_to lender.name, lender_path(lender)
+    .col-sm-6 =lender.street+", "+lender.city
 
 = link_to 'New Lender', new_lender_path

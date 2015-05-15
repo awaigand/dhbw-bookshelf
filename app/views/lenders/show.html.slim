@@ -1,14 +1,23 @@
 p#notice = notice
 
-p
-  strong Name:
-  = @lender.name
-p
-  strong Street:
-  = @lender.street
-p
-  strong City:
+h1 = @lender.name
+h3
+  = @lender.street+", "
   = @lender.city
+
+h4 Books lend:
+- for book in Book.for_lender(@lender.id)
+  div.row
+    div.col-sm-9
+      =link_to book.title, book_path(book)
+    div.col-sm-3
+      form method="post" action="#{book_path(book)}"
+        input name="#{request_forgery_protection_token.to_s}" value="#{form_authenticity_token}" type="hidden"
+        input name="_method" type="hidden" value="put"
+        input name="bookid" value="#{book.id}" type="hidden"
+        input name="lenderid" value="nil" type="hidden"
+        input type="submit" value="#{book.lender.name} returned the book"
+
 
 = link_to 'Edit', edit_lender_path(@lender)
 '|

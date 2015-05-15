@@ -3,3 +3,8 @@ h3 by
 ul
   - book.authors.each do |author|
     li =link_to author.name, author_path(author)
+- if book.lender
+  p
+    | Lend to:
+    =link_to book.lender.name, lender_path(book.lender)
+
