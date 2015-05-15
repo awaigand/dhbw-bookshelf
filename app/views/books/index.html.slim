@@ -1,8 +1,8 @@
 
 - if @books.empty?
-  h1
-    | No books yet.
-    =link_to " Search?", search_search_url
+  div#empty
+    h1 No books yet.
+    h1 =link_to " Search?", search_search_url
 
 - for book in @books
   div class="row" style="margin-top:25px;"
