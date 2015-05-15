@@ -1,32 +1,32 @@
 
-- if @books.empty?
+- if !@books || @books.empty?
   div#empty
     h1 No books yet.
     h1 =link_to " Search?", search_search_url
-
-- for book in @books
-  div class="row" style="margin-top:25px;"
-    div class="col-sm-3"
-      img src=book.image_link
-    div class="col-sm-9"
-      div class="row"
-        div class="col-sm-12"
-          = render :partial => 'shared/book', :object => book
-          =link_to 'Remove book', book, data: {:confirm => 'Are you sure?'}, :method => :delete
-        div class="col-sm-12" style="margin-top:20px;"
-          - if book.lender
-            form method="post" action="#{book_path(book)}"
-              input name="#{request_forgery_protection_token.to_s}" value="#{form_authenticity_token}" type="hidden"
-              input name="_method" type="hidden" value="put"
-              input name="bookid" value="#{book.id}" type="hidden"
-              input name="lenderid" value="nil" type="hidden"
-              input type="submit" value="#{book.lender.name} returned the book"
-          - else
-            form method="post" action="#{book_path(book)}"
-              input name="#{request_forgery_protection_token.to_s}" value="#{form_authenticity_token}" type="hidden"
-              input name="_method" type="hidden" value="put"
-              input name="bookid" value="#{book.id}" type="hidden"
-              select name="lenderid"
-                -for lender in Lender.all
-                  option value="#{lender.id}" #{lender.name}
-              input type="submit" value="Lend"
+- else
+  - for book in @books
+    div class="row" style="margin-top:25px;"
+      div class="col-sm-3"
+        img src=book.image_link
+      div class="col-sm-9"
+        div class="row"
+          div class="col-sm-12"
+            = render :partial => 'shared/book', :object => book
+            =link_to 'Remove book', book, data: {:confirm => 'Are you sure?'}, :method => :delete
+          div class="col-sm-12" style="margin-top:20px;"
+            - if book.lender
+              form method="post" action="#{book_path(book)}"
+                input name="#{request_forgery_protection_token.to_s}" value="#{form_authenticity_token}" type="hidden"
+                input name="_method" type="hidden" value="put"
+                input name="bookid" value="#{book.id}" type="hidden"
+                input name="lenderid" value="nil" type="hidden"
+                input type="submit" value="#{book.lender.name} returned the book"
+            - else
+              form method="post" action="#{book_path(book)}"
+                input name="#{request_forgery_protection_token.to_s}" value="#{form_authenticity_token}" type="hidden"
+                input name="_method" type="hidden" value="put"
+                input name="bookid" value="#{book.id}" type="hidden"
+                select name="lenderid"
+                  -for lender in Lender.all
+                    option value="#{lender.id}" #{lender.name}
+                input type="submit" value="Lend"
