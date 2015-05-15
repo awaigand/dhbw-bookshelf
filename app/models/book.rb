@@ -6,5 +6,5 @@ class Book < ActiveRecord::Base
   scope :for_author, -> (author){ joins(:authors).where(:authors => {:name => author})}
   scope :for_lender, -> (lender_id){ where('lender_id = ?',lender_id) }
   
-  before_destroy{ books.clear }
+  before_destroy{ authors.clear }
 end
