@@ -2,4 +2,4 @@ h1 #{book.title}
 h3 by
 ul
   - book.authors.each do |author|
-    li =author.name
+    li =link_to author.name, author_path(author)

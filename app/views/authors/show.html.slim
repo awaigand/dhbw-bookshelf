@@ -1,8 +1,19 @@
 p#notice = notice
 
-p
-  strong Name:
-  = @author.name
+h1  = @author.name
+
+h3 Author of
+- for book in @books
+  div class="row" style="margin-top:25px;"
+    div class="col-sm-3"
+      img src=book.image_link
+    div class="col-sm-9"
+      div class="row"
+        div class="col-sm-12"
+          = render :partial => 'shared/book', :object => book
+          =link_to 'Remove book', book, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+
 
 = link_to 'Edit', edit_author_path(@author)
 '|
