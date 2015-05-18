@@ -2,6 +2,7 @@
 
 Das DHBW-Bookshelf dient als simple Verwaltung einer privaten Bibliothek mit Ausleihfunktion.
 Der Nutzer kann:
+
 1. Lender anlegen, d.h. Leute die sich Bücher von ihm ausleihen
 2. Kann nach ISBN für ein exaktes Buch oder nach Text für eine Textsuche suchen (z.b. nach author oder title etc.) Für die Ergebnisse wird die Google Books API verwendet.
 3. Bücher die in dieser Suche gefunden werden werden im AR gespeichert. Für die Authoren des Buches wird entweder ein neuer Author Record angelegt, oder sie werden bei übereinstimmenden Namen mit dem gleichen Author Record verknüpft.
