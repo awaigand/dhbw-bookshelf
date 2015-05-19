@@ -10,6 +10,10 @@ Der Nutzer kann:
 5. In der Lender übersicht werden alle Lender und deren ausgeliehene Bücher angezeigt.
 6. In der Buchübersicht kann man angeben, dass ein Lender sich ein Buch ausgeliehen hat oder das er es wieder zurückgegeben hat. 
 
+# Branches
+
+Der main-Branch ist 4.1.8., falls es irgendwelche Probleme gibt kann auch der upgrading branch verwendet werden. Dieser ist funktional identisch, basiert jedoch auf Rails 4.2.1. 
+
 # Wie erfüllt dieses Repository die Anforderungen?
 
 ## Modelle (20 Punkte)
@@ -47,4 +51,3 @@ Der Nutzer kann:
 1. Wegen dem GoogleBooks Gem wird eine Art Mocking verwendet, welches die Unit Tests ermöglicht. Allerdings wird hierfür keine Library verwendet.
 2. Das Grundlegende Scaffolding wurde ohne VCS erstellt, weswegen der initial commit schon ziemlich groß ist.
 3. Die meisten Forms werden ohne den Form Helper erstellt, da dieser Code noch aus einer Zeit vor meiner Vertrautheit mit dem Form Helper stammt.
-
