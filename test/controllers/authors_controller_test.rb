@@ -71,7 +71,7 @@ class AuthorsControllerTest < ActionController::TestCase
     post :create, author: {name: nil }
     assert_response :ok
     assert_select '#error_explanation ul' do
-      assert_select 'li', "Name can&#39;t be blank"
+      assert_select 'li', "Name can't be blank"
     end
   end
 
@@ -79,7 +79,7 @@ class AuthorsControllerTest < ActionController::TestCase
     patch :update, id: @author, author: { name: nil }
     assert_response :ok
     assert_select '#error_explanation ul' do
-      assert_select 'li', "Name can&#39;t be blank"
+      assert_select 'li', "Name can't be blank"
     end
   end
 

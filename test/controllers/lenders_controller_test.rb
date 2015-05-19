@@ -15,7 +15,7 @@ class LendersControllerTest < ActionController::TestCase
     post :create, lender: {name: nil }
     assert_response :ok
     assert_select '#error_explanation ul' do
-      assert_select 'li', "Name can&#39;t be blank"
+      assert_select 'li', "Name can't be blank"
     end
   end
 
@@ -51,7 +51,7 @@ class LendersControllerTest < ActionController::TestCase
     patch :update, id: @lender, lender: { name: nil }
     assert_response :ok
     assert_select '#error_explanation ul' do
-      assert_select 'li', "Name can&#39;t be blank"
+      assert_select 'li', "Name can't be blank"
     end
   end
 
